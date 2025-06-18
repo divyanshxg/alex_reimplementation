@@ -1,16 +1,53 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/styles.css" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="gl">
-      <div class="island"></div>
-    </div>
-    <script type="module" src="./js/App.js"></script>
-  </body>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite App</title>
+</head>
+
+<body>
+    <main>
+       <!-- Contains the reply button and the actual card -->
+      <div class="container" >
+        <!-- Replay Button -->
+        <div class="reset_anim_btn" >
+          <div class="reset_svg">
+            <img src="./assets/reset-svgrepo-com.svg" alt="">
+          </div>
+        </div>
+
+
+        <!-- Card which will later be converted to an image for texture distortion -->
+      <div class="canvas_container">
+        <div class="card">
+          <div class="image_container">
+            <img src="./assets/client_photo_1.jpg" alt="">
+          </div>
+          <div class="card_content">
+            <div class="card_content_text">
+              <div class="card_content_heading">
+              The Substance</div>
+              <div class="card_content_subheading">
+              Prime Video</div>
+            </div>
+            <div class="card_content_btn">
+              <div class="svg">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
+
+              </div>
+              <div class="btn_text">Watch</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      </div> 
+    </main>
+    <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
