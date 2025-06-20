@@ -50,6 +50,12 @@ function run() {
           scene.onTouchDown()
         })
 
+        window.addEventListener("keydown", (e) => {
+          if (e.ctrlKey) {
+            scene.onTouchDown()
+          }
+        })
+
         // Removing the actual html element from the DOM
         container[i].querySelector(".card").remove()
 

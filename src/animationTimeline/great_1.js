@@ -85,10 +85,10 @@ export default function animationTimeline(front_plane, back_plane, notch, timeSc
 
   tl.to(back_plane.program.uniforms.p3, {
     value: 0,
-    duration: 0.9,
+    duration: 1.3,
     ease: 'Power2.easeInOut',
     id: "back_plane_scaling_down_texture"
-  }, `start+=${2.0 - diff}`);
+  }, `start+=${1.9 - diff}`);
 
   tl.to(back_plane.program.uniforms.p4, {
     value: 1.,
@@ -123,10 +123,10 @@ export default function animationTimeline(front_plane, back_plane, notch, timeSc
   // }, `start+=${1.85 - diff}`)
 
 
-  let eas = "0.6, -0.03, 0.07, 1.06"
-  // let eas = "0.51, 0.01, 0, 1.25"
+  // let eas = "0.6, -0.03, 0.07, 1.06"
+  let eas = "0.6, -0.03, 0.15, 1.16"
   let dur_inc = 0.
-  let inc = 0.15
+  let inc = 0.2
   tl.to(back_plane.program.uniforms.pn1, {
     value: 1.,
     duration: 1.6 + dur_inc, // 10
