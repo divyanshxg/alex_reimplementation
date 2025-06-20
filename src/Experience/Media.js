@@ -8,7 +8,8 @@ import createBackPlane from "./Meshes/back_plane";
 import createDebugUI from "../utils/debug";
 import demo_1 from '../../assets/demo_1.png'
 import demo_2 from '../../assets/demo_2.png'
-
+import demo_3 from '../../assets/client_photo_3.jpg'
+import demo_4 from '../../assets/client_photo_4.png'
 
 gsap.registerPlugin(CustomEase)
 
@@ -23,7 +24,7 @@ export default class Media {
       distortionIntensity: 0.09,
       topRingSmoothness: 0.02,
       bottomRingSmoothness: 0.1,
-      Image: img,
+      Image: demo_3,
     }
 
     this.first = true;
@@ -34,7 +35,8 @@ export default class Media {
     this.gui.add(this.guiObj, "Image", {
       Live_UI: img,
       Demo_1: demo_1,
-      Demo_2: demo_2
+      Demo_2: demo_2,
+      Demo_3: demo_3,
     }).onChange((e) => {
       this.front_plane.visible = false;
       this.back_plane.visible = false;
@@ -52,7 +54,7 @@ export default class Media {
     this.geometry = geometry;
     this.gl = gl;
     this.image_dimensions = new Vec2(0, 0);
-    this.createMeshes(img)
+    this.createMeshes(this.guiObj.Image)
   }
 
   createMeshes(this_img) {

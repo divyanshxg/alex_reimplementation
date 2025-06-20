@@ -81,6 +81,9 @@ export default function createBackPlane(gl, scene, geometry, texture, image_dime
       pn4: {
         value: 0
       },
+      pn5: {
+        value: 0
+      },
       // GUI Parameters
       uDistortion: {
         value: guiObj.distortionIntensity

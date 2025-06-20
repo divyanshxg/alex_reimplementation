@@ -19,7 +19,6 @@ uniform float pn1;
 uniform float pn2;
 uniform float pn3;
 uniform float pn4;
-uniform float pn5;
 /////////////////////
 
 // to be removed (since they are from GUI) after tweaking and place these values at appropriate places
@@ -94,13 +93,13 @@ vec2 uv = vec2(
     float ratio = uPlane.x/uPlane.y;
 
     // float circ = sdCircle( normalized_uv , 0.2);
-float circ = length( ( vec2(normalized_uv.x, normalized_uv.y) * vec2(1.) - vec2(0.0, 0.925) ) * vec2(1.0 + 0.6 * pn2, 1.0) );
+float circ = length( ( vec2(normalized_uv.x, normalized_uv.y) * vec2(1.) - vec2(0.0, 0.925) ) * vec2(1.0 + 0.8 * pn2, 1.0) );
 
   float t1 = pn1;
-  float off = t1 * 2.4;
-  float off1 = (t1  - 0.25 - 0.15*pn3)* 2.2;
-  float ripple = 1.0 - smoothstep(-0.06 + off , 0.0 + off , circ);
-  ripple *= smoothstep(-0.06 + off1   , 0.0 + off1 + 1.*pn3 , circ);
+  float off = t1 * 2.3;
+  float off1 = (t1  - 0.2 - 0.3*pn3)* 3.;
+  float ripple = 1.0 - smoothstep(-0.06 + off , 0.0 + off+ 0.05, circ);
+  ripple *= smoothstep(-0.06 + off1   , 0.0 + off1 + 1.3*pn3 , circ);
 // ripple *= smoothstep(1.0 ,0.8 , pn2);
 
 
@@ -117,27 +116,8 @@ float verticalFalloff = smoothstep(circleBottomY - falloffHeight, circleBottomY,
 float d = ripple;
     float debb = d;
 
-    
-    float bandWidth = 0.02; // Width of the band
-    float smoothness = 0.3; // Smoothness of band edges
-    
-    // Calculate band position (moving from top to bottom)
-    float bandPos = pn5*0.9;
-    
-    // Create smooth band effect using smoothstep
-    float band = smoothstep(bandPos - bandWidth - smoothness, bandPos - bandWidth, 1.0 - vUv.y) - 
-                 smoothstep(bandPos, bandPos + smoothness, 1.0-vUv.y);
 
-    float m = band;
-    m *= smoothstep(1.0 , 0.0, pn4);
-    // m *= smoothstep(1.0, 0.9 , pn5);
-    float edge = 0.2; // edge damping distance
-      
-    float edgeDamp =  smoothstep(0.0, edge, vUv.y) * 
-                  smoothstep(0.0, edge, 1.0 - vUv.y);
-    m *= edgeDamp;
-    // m *= smoothstep(1.0 , 0.95 , pn5);
-    vec2 bangOff = vec2(scaledUv.x + 0.0*ripple , scaledUv.y - 0.06*m);
+    vec2 bangOff = vec2(scaledUv.x + 0.0*ripple , scaledUv.y + 0.0*ripple);
     vec4 color = texture(uTexture,bangOff);
     vec3 blured = blur(bangOff,uTexture , 0.05).xyz;
 
@@ -160,20 +140,16 @@ float d = ripple;
 
     // glow = 1.0 - exp( -glow);
     
-    glow *= smoothstep(1.0 , 0.8 , p4);
+    glow *= smoothstep(1.0 , 0.75 , p4);
 
     fragColor.xyz += glow ;
-    fragColor.xyz *= (1.0 +(1.7)*ripple);
-    // fragColor.xyz *= (1.0 +ripple);
+    fragColor.xyz *= (1.0 +(1.0 + 1.5*pn3)*ripple);
 
 
 
     fragColor.a = 1.0;
   
 
-
-
-  debb = m;
 
     // fragColor = vec4(vec3(debb) , 1.0);
 

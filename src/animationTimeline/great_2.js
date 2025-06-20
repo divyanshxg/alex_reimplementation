@@ -103,7 +103,7 @@ export default function animationTimeline(front_plane, back_plane, notch, timeSc
   let inc = 0.15
   tl.to(back_plane.program.uniforms.pn1, {
     value: 1.,
-    duration: 1.45 + dur_inc + 0.3 + 0.6, // 10
+    duration: 1.45 + dur_inc + 0.3, // 10
     ease: eas,
     id: "back_plane_wave_timeline_new_timeline"
   }, `start+=${1.8 - diff + inc}`)
@@ -111,7 +111,7 @@ export default function animationTimeline(front_plane, back_plane, notch, timeSc
 
   tl.to(back_plane.program.uniforms.pn2, {
     value: 1.,
-    duration: 1.25 + dur_inc + 0.3 + 0.6, // 10
+    duration: 1.25 + dur_inc + 0.3, // 10
     ease: eas,
     // ease: "0.77, 0, 0.175, 1",
     // ease: CustomEase.create("io2", "M0,0 C0.285,0.083 0.031,1.076 1,1 "),
@@ -120,7 +120,7 @@ export default function animationTimeline(front_plane, back_plane, notch, timeSc
 
   tl.to(back_plane.program.uniforms.pn3, {
     value: 1.,
-    duration: 0.8 + dur_inc + 0.3 + 0.6, // 10
+    duration: 0.8 + dur_inc + 0.3, // 10
     ease: "none",
     id: "back_plane_wave_timeline_new_timeline"
   }, `start+=${1.8 - diff + inc + dur_inc}`)
@@ -130,14 +130,14 @@ export default function animationTimeline(front_plane, back_plane, notch, timeSc
     duration: 0.8, // 10
     ease: "none",
     id: "back_plane_wave_timeline_new_timeline"
-  }, `start+=${3.7 - diff + inc + dur_inc}`)
+  }, `start+=${3. - diff + inc + dur_inc}`)
 
   tl.to(back_plane.program.uniforms.pn5, {
-    value: 1.4,
-    duration: 2.0 + dur_inc + 0.3 + 0.6, // 10
-    ease: CustomEase.create("custom", "M0,0 C0.401,0 0.428,1.033 1,1 "),
+    value: 1.,
+    duration: 0.8, // 10
+    ease: "none",
     id: "back_plane_wave_timeline_new_timeline"
-  }, `start+=${1.75 - diff + inc + dur_inc}`)
+  }, `start+=${2. - diff + inc + dur_inc}`)
 
 
   GSDevTools.create({ animation: tl })
