@@ -133,7 +133,8 @@ export default function animationTimeline(front_plane, back_plane, notch, timeSc
   }, `start+=${3.7 - diff + inc + dur_inc}`)
 
   tl.to(back_plane.program.uniforms.pn5, {
-    value: 1.4,
+    value: 1.3,
+    // duration: 1.7 + dur_inc + 0.3 + 0.6, // 10
     duration: 1.7 + dur_inc + 0.3 + 0.6, // 10
     ease: CustomEase.create("custom", "M0,0 C0.401,0 0.428,1.033 1,1 "),
     id: "back_plane_wave_timeline_new_timeline"
