@@ -66,8 +66,10 @@ export default class Media {
       minFilter: this.gl.LINEAR_MIPMAP_LINEAR,
       magFilter: this.gl.LINEAR,
       generateMipmaps: true,
-      wrapS: this.gl.CLAMP,
-      wrapT: this.gl.CLAMP,
+      wrapS: this.gl.CLAMP_TO_EDGE,
+      wrapT: this.gl.CLAMP_TO_EDGE,
+      // wrapS: this.gl.REPEAT,
+      // wrapT: this.gl.REPEAT,
     });
 
     const image = new Image();

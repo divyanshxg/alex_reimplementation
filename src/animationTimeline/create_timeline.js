@@ -36,7 +36,7 @@ export default function animationTimeline(front_plane, back_plane, notch, timeSc
     duration: 1.0, // 2.5 - 1.5
     ease: CustomEase.create("custom", "M0,0 C0.076,0 0.317,0.031 0.5,0.2 0.774,0.452 1,0.889 1,1 "),
     id: "front_plane_up_all_the_way"
-  }, "start+=0.7");
+  }, "start+=0.65");
 
   // Texture Stretching of the front plane
   tl.to(front_plane.program.uniforms.uProgress, {
@@ -61,7 +61,7 @@ export default function animationTimeline(front_plane, back_plane, notch, timeSc
     duration: 0.5,
     ease: "none",
     id: "back_plane_unblur"
-  }, "start+=2.3");
+  }, "start+=2.5");
   //
 
   // Notch Timeline
@@ -134,7 +134,7 @@ export default function animationTimeline(front_plane, back_plane, notch, timeSc
 
   tl.to(back_plane.program.uniforms.pn5, {
     value: 1.4,
-    duration: 2.0 + dur_inc + 0.3 + 0.6, // 10
+    duration: 1.7 + dur_inc + 0.3 + 0.6, // 10
     ease: CustomEase.create("custom", "M0,0 C0.401,0 0.428,1.033 1,1 "),
     id: "back_plane_wave_timeline_new_timeline"
   }, `start+=${1.75 - diff + inc + dur_inc}`)

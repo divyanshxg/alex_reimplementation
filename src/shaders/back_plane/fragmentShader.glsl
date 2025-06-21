@@ -81,13 +81,26 @@ vec2 uv = vec2(
         vUv.y * a_ratio.y + (1.0 - a_ratio.y) * 0.5
     );
 
-  vec3 glow_c = vec3(1.0, 0.82, 0.7);
 
     // Y TEXTURE SCALE
     float scaleFactor = mix(1.0, 1.11, p3);
     vec2 scaledUv = uv;
     scaledUv.y = uv.y/mix(1.0, scaleFactor, (uv.y + (p3+0.001)*((p3+0.001)+0.5)*0.4/(p3+0.001) ) );
 
+    float stretchStartY = 0.8;   // Where stretch starts (0.0 = bottom, 1.0 = top)
+float smoothness = 0.2;     // Smoothing range
+float stretchFactor = 0.95 + 0.05*smoothstep(0.7, 1.0, pn5);   // How much to stretch downward
+
+stretchFactor = 1.;
+// stretchFactor += (1.0 - stretchFactor)*smoothstep(0.4, 1.0,pn5);
+// Create a smooth mask from 1 below stretchStartY to 0 above it
+float stretchMask = 1.0 - smoothstep(stretchStartY, stretchStartY + smoothness, scaledUv.y);
+
+// Stretch downward only below stretchStartY, smoothly blended
+float stretchedY = mix(scaledUv.y, stretchStartY - (stretchStartY - scaledUv.y) * stretchFactor, stretchMask);
+
+vec2 stretchedUv = vec2(scaledUv.x, stretchedY);
+scaledUv = stretchedUv;
 
 
 
@@ -97,8 +110,8 @@ vec2 uv = vec2(
 float circ = length( ( vec2(normalized_uv.x, normalized_uv.y) * vec2(1.) - vec2(0.0, 0.925) ) * vec2(1.0 + 0.6 * pn2, 1.0) );
 
   float t1 = pn1;
-  float off = t1 * 2.4;
-  float off1 = (t1  - 0.25 - 0.15*pn3)* 2.2;
+  float off = t1 * 2.7;
+  float off1 = (t1  - 0.25 - 0.15*pn3)* 2.7;
   float ripple = 1.0 - smoothstep(-0.06 + off , 0.0 + off , circ);
   ripple *= smoothstep(-0.06 + off1   , 0.0 + off1 + 1.*pn3 , circ);
 // ripple *= smoothstep(1.0 ,0.8 , pn2);
@@ -118,25 +131,23 @@ float d = ripple;
     float debb = d;
 
     
-    float bandWidth = 0.02; // Width of the band
-    float smoothness = 0.3; // Smoothness of band edges
-    
+    float bandWidth = 0.02;         // Width of the band
+    float smoothTop = 0.3;          // Smoothness of top edge
+    float smoothBottom = 0.3;       // Smoothness of bottom edge
+
     // Calculate band position (moving from top to bottom)
-    float bandPos = pn5*0.9;
-    
-    // Create smooth band effect using smoothstep
-    float band = smoothstep(bandPos - bandWidth - smoothness, bandPos - bandWidth, 1.0 - vUv.y) - 
-                 smoothstep(bandPos, bandPos + smoothness, 1.0-vUv.y);
+    float bandPos = pn5 * 0.95;
+
+    // Create smooth band effect with different top and bottom smoothness
+    float band = smoothstep(bandPos - bandWidth - smoothBottom, bandPos - bandWidth, 1.0 - vUv.y) - 
+                smoothstep(bandPos, bandPos + smoothTop, 1.0 - vUv.y);
 
     float m = band;
-    m *= smoothstep(1.0 , 0.0, pn4);
-    // m *= smoothstep(1.0, 0.9 , pn5);
-    float edge = 0.2; // edge damping distance
-      
+    float edge = 0.15; // edge damping distance
     float edgeDamp =  smoothstep(0.0, edge, vUv.y) * 
                   smoothstep(0.0, edge, 1.0 - vUv.y);
-    m *= edgeDamp;
-    // m *= smoothstep(1.0 , 0.95 , pn5);
+    m *= edgeDamp*smoothstep(0.0,0.2,pn5);
+
     vec2 bangOff = vec2(scaledUv.x + 0.0*ripple , scaledUv.y - 0.06*m);
     vec4 color = texture(uTexture,bangOff);
     vec3 blured = blur(bangOff,uTexture , 0.05).xyz;
@@ -158,12 +169,13 @@ float d = ripple;
     glow = pow(glow ,1.);
 
 
+
     // glow = 1.0 - exp( -glow);
     
     glow *= smoothstep(1.0 , 0.8 , p4);
 
     fragColor.xyz += glow ;
-    fragColor.xyz *= (1.0 +(1.7)*ripple);
+    fragColor.xyz *= (1.0 +(1.7)*ripple*smoothstep(1.0, 0.8, pn3));
     // fragColor.xyz *= (1.0 +ripple);
 
 
