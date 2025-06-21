@@ -9,7 +9,7 @@ precision mediump float;
 uniform sampler2D uTexture;
 uniform vec2 uImage;
 uniform vec2 uPlane;
-uniform float uProgress;
+uniform float uProgress; // texture stretch progress 
 
 //Varying 
 in vec2 vUv;
@@ -66,7 +66,7 @@ vec2 uv = vec2(
 // Scaling the texture
   float scaleFactor = mix(1.0, 2.0, uProgress); // Scales from 1x to 2x
   vec2 scaledUv = uv;
-  scaledUv.y = uv.y/mix(1.0 , scaleFactor , (vUv.y + (uProgress+0.5)*0.4  ) );
+  scaledUv.y = uv.y/mix(1.0 , scaleFactor , (vUv.y + (uProgress+0.5)*0.3 ) );
 
   vec3 tex = texture(uTexture , scaledUv ).rgb;
 

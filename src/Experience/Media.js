@@ -1,15 +1,13 @@
 import { Mesh, Plane, Program, Texture, Vec2 } from "ogl";
 import gsap from "gsap";
 import { CustomEase } from 'gsap/CustomEase'
-import animationTimeline from "../animationTimeline/create_timeline";
+import animationTimeline from "./createTimeline.js";
 import createNotch from "./Meshes/notch";
 import createFrontPlane from "./Meshes/front_plane";
 import createBackPlane from "./Meshes/back_plane";
-import createDebugUI from "../utils/debug";
 import demo_1 from '../../assets/demo_1.png'
 import demo_2 from '../../assets/demo_2.png'
 import demo_3 from '../../assets/client_photo_3.jpg'
-import demo_4 from '../../assets/client_photo_4.png'
 
 gsap.registerPlugin(CustomEase)
 
@@ -19,12 +17,18 @@ export default class Media {
     // GUI DEBUG properties 
 
     this.guiObj = {
-      overallSpeed: 1,
-      shockWaveSpeed: 1,
-      distortionIntensity: 0.09,
-      topRingSmoothness: 0.02,
-      bottomRingSmoothness: 0.1,
       Image: demo_3,
+      downloadCode: () => {
+        const downloadLink = "https://github.com/divyanshxg/alex_reimplementation/archive/refs/heads/main.zip"; // PASTE YOUR LINK HERE
+
+        const a = document.createElement('a');
+        a.href = downloadLink;
+        a.download = 'your-project-source-code.zip'; // Suggested filename for the download
+        // document.body.appendChild(a); // Append to body to make it clickable
+        a.click(); // Programmatically click the link
+        // document.body.removeChild(a); // Remove the link after clicking
+      },
+
     }
 
     this.first = true;
@@ -42,12 +46,9 @@ export default class Media {
       this.back_plane.visible = false;
       this.tl = ""
       this.createMeshes(e)
-      // this.tl = animationTimeline(this.front_plane, this.back_plane, this.notch, this.guiObj.overallSpeed)
-      // this.tl.pause()
-
-
-
     })
+
+    this.gui.add(this.guiObj, 'downloadCode').name('Download Source Code');
     this.renderer = renderer;
     this.scene = scene;
     this.img = img;
@@ -57,9 +58,7 @@ export default class Media {
     this.createMeshes(this.guiObj.Image)
   }
 
-  createMeshes(this_img) {
-
-
+  createMeshes(curr_img) {
 
     // creating a texture with some basic properties
     const texture = new Texture(this.gl, {
@@ -68,8 +67,6 @@ export default class Media {
       generateMipmaps: true,
       wrapS: this.gl.CLAMP_TO_EDGE,
       wrapT: this.gl.CLAMP_TO_EDGE,
-      // wrapS: this.gl.REPEAT,
-      // wrapT: this.gl.REPEAT,
     });
 
     const image = new Image();
@@ -102,21 +99,13 @@ export default class Media {
       this.front_plane.position.z = 0.00
       this.notch.position.z = 0.001
 
-      // animation timeline
-      // setting the overallSpeed to 1 at start(from guiObj)
 
-      // pausing it so doesn't run on load
-      this.createGUI()
-
-
-      // if (this.first) {
-      this.tl = animationTimeline(this.front_plane, this.back_plane, this.notch, this.guiObj.overallSpeed)
+      this.tl = animationTimeline(this.front_plane, this.back_plane, this.notch)
       this.tl.pause()
-      // this.first = false;
-      // }
 
     };
-    image.src = this_img;
+
+    image.src = curr_img;
 
   }
 
@@ -124,7 +113,6 @@ export default class Media {
   createGUI() {
 
     // passing Media instance to change the animation timeline of this instance
-    createDebugUI(this.gui, this.guiObj, this.back_plane, this)
 
   }
 

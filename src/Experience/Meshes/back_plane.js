@@ -40,62 +40,22 @@ export default function createBackPlane(gl, scene, geometry, texture, image_dime
         value: texture
       },
       uImage: {
-        value: image_dimensions,
+        value: image_dimensions
       },
       uPlane: {
         value: new Vec2(containerAR, 1.)
       },
-      unblur_p: {
+      texture_stretch_p: {
         value: 0
       },
-      uGlowWave: {
+      wave_p: {
         value: 0
       },
-      uTextureStretch: {
+      wave_fade_p: {
         value: 0
       },
-      uGlowRadius: {
+      distortion_wave_p: {
         value: 0
-      },
-      uRippleWave: {
-        value: 0
-      },
-      p2: {
-        value: 0
-      },
-      p3: {
-        value: 0
-      },
-      p4: {
-        value: 0
-      },
-      pn1: {
-        value: 0
-      },
-      pn2: {
-        value: 0
-      },
-      pn3: {
-        value: 0
-      },
-      pn4: {
-        value: 0
-      },
-      pn5: {
-        value: 0
-      },
-      // GUI Parameters
-      uDistortion: {
-        value: guiObj.distortionIntensity
-      },
-      uShockwaveSpeed: {
-        value: guiObj.shockWaveSpeed
-      },
-      uTopRingSmoothness: {
-        value: guiObj.topRingSmoothness
-      },
-      uBottomRingSmoothness: {
-        value: guiObj.bottomRingSmoothness
       }
     }
   });

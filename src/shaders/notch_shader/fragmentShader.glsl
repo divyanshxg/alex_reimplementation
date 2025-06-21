@@ -17,6 +17,7 @@ void main() {
   normalized_uv.x *= uPlane.x/uPlane.y;
   
 
+  // masking the notch shape
   float d = length(normalized_uv);
   d = sdRoundedBox(normalized_uv , vec2(uPlane.x/uPlane.y,1.) , vec4( 1.0 ));
 
